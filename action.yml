@@ -1,4 +1,4 @@
-name: "dotnet-format Problem Matcher"
+name: "Problem Matcher for dotnet-format"
 
 description: "Sets up a problem matcher for dotnet-format that's used to create annotations for violations"
 
