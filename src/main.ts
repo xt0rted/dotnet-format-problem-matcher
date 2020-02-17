@@ -12,7 +12,7 @@ export function run() {
         issueCommand(
           "add-matcher",
           {},
-          join(__dirname, "..", ".github", "dotnet-format-problem-matcher.json"),
+          join(__dirname, "..", ".github", "problem-matcher.json"),
         );
         break;
 
