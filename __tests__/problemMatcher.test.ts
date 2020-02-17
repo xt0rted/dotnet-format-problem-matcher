@@ -1,10 +1,14 @@
 import { matchResults } from "../__helpers__/utils";
-import { problemMatcher as problemMatcherJson } from "../.github/dotnet-format-problem-matcher.json";
+import { problemMatcher as problemMatcherJson } from "../.github/problem-matcher.json";
 import { ProblemMatcher, ProblemPattern } from "github-actions-problem-matcher-typings";
 
-const problemMatcher = problemMatcherJson[0] as ProblemMatcher;
+const problemMatcher: ProblemMatcher = problemMatcherJson[0];
 
 describe("problemMatcher", () => {
+  it("has the correct owner", () => {
+    expect(problemMatcher.owner).toEqual("dotnet-format");
+  });
+
   it("has one pattern", () => {
     expect(problemMatcher.pattern.length).toEqual(1);
   });
@@ -19,24 +23,21 @@ describe("problemMatcher", () => {
     ];
 
     let pattern: ProblemPattern;
-    let regexp: RegExp;
+    let results: RegExpExecArray[];
 
     beforeEach(() => {
       pattern = problemMatcher.pattern[0];
-      regexp = new RegExp(pattern.regexp);
+
+      const regexp = new RegExp(pattern.regexp);
+
+      results = matchResults(reportOutput, regexp);
     });
 
     it("matches violations", () => {
-      const results = matchResults(reportOutput, regexp);
-
       expect(results.length).toEqual(2);
     });
 
     it("matches violation details", () => {
-      const results = matchResults(reportOutput, regexp);
-
-      expect(results.length).toEqual(2);
-
       expect(results[0][pattern.file]).toEqual("src\\ConsoleApp\\Program.cs");
       expect(results[0][pattern.line]).toEqual("5");
       expect(results[0][pattern.column]).toEqual("18");
