@@ -1,9 +1,12 @@
 import { matchResults } from "../__helpers__/utils";
-import { dotnetFormatMatcher, ProblemMatcherPattern } from "../__data__/dotnetFormatMatcher";
+import { problemMatcher as problemMatcherJson } from "../.github/dotnet-format-problem-matcher.json";
+import { ProblemMatcher, ProblemPattern } from "github-actions-problem-matcher-typings";
+
+const problemMatcher = problemMatcherJson[0] as ProblemMatcher;
 
 describe("problemMatcher", () => {
   it("has one pattern", () => {
-    expect(dotnetFormatMatcher.pattern.length).toEqual(1);
+    expect(problemMatcher.pattern.length).toEqual(1);
   });
 
   describe("pattern", () => {
@@ -15,11 +18,11 @@ describe("problemMatcher", () => {
       "  Format complete in 4451ms.",
     ];
 
-    let pattern: ProblemMatcherPattern;
+    let pattern: ProblemPattern;
     let regexp: RegExp;
 
     beforeEach(() => {
-      pattern = dotnetFormatMatcher.pattern[0];
+      pattern = problemMatcher.pattern[0];
       regexp = new RegExp(pattern.regexp);
     });
 
