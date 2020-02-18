@@ -82,7 +82,8 @@ function run() {
                     break;
                 case "remove":
                     const fileContents = yield readFileAsync(__webpack_require__.ab + "problem-matcher.json", { encoding: "utf8" });
-                    const problemMatcher = JSON.parse(fileContents);
+                    const problemMatcherDocument = JSON.parse(fileContents);
+                    const problemMatcher = problemMatcherDocument.problemMatcher[0];
                     command_1.issueCommand("remove-matcher", {
                         owner: problemMatcher.owner,
                     }, "");
