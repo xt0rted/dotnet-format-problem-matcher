@@ -14,6 +14,11 @@ inputs:
     required: false
     default: add
 
+  use-workspace:
+    description: "Load a version of the problem matcher that works with dotnet-format's workspaces log output"
+    required: false
+    default: "false"
+
 runs:
   using: "node12"
   main: "dist/index.js"

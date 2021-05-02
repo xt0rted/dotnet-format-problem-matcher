@@ -30,6 +30,7 @@ jobs:
 Name | Allowed values | Description
 -- | -- | --
 `action` | `add` (default), `remove` | If the problem matcher should be registered or removed
+`use-workspace` | `true` or `false` (default) | Load a version of the problem matcher that works with `dotnet-format`'s workspaces log output
 
 ## License
 

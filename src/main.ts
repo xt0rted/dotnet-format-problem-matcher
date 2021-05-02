@@ -11,8 +11,9 @@ const { readFile } = promises;
 export async function run(): Promise<void> {
   try {
     const action = getInput("action");
+    const useWorkspace = getInput("use-workspace") === "true";
 
-    const matcherFile = join(__dirname, "problem-matcher.json");
+    const matcherFile = join(__dirname, useWorkspace ? "workspace-problem-matcher.json" : "problem-matcher.json");
 
     switch (action) {
       case "add":
