@@ -20,9 +20,12 @@ describe("problemMatcher", () => {
       pattern = problemMatcher.pattern[0];
     });
 
-    it("matches sln files", () => {
+    it.each([
+      "C:\\dev\\application\\application.sln",
+      "/mnt/c/dev/application/application.sln"
+    ])("matches sln file (%s)", (file) => {
       const reportOutput = [
-        "  Formatting code files in workspace 'C:\\dev\\application\\application.sln'.",
+        `  Formatting code files in workspace '${file}'.`,
         "  src\\ConsoleApp\\Program.cs(5,18): Fix whitespace formatting 1.",
         "  src\\ConsoleApp\\Program.cs(8,30): Fix whitespace formatting 2.",
         "  Formatted code file 'Program.cs'.",
@@ -32,12 +35,17 @@ describe("problemMatcher", () => {
       const regexp = new RegExp(pattern.regexp);
       const results = matchResults(reportOutput, regexp);
 
-      expect(results[0][pattern.fromPath]).toEqual("C:\\dev\\application\\application.sln");
+      expect(results[0][pattern.fromPath]).toEqual(file);
     });
 
-    it("matches csproj files", () => {
+    it.each([
+      "C:\\dev\\application\\src\\ConsoleApp\\ConsoleApp.csproj",
+      "/mnt/c/dev/application/src/ConsoleApp/ConsoleApp.csproj",
+      "C:\\dev\\application\\src\\ConsoleApp\\ConsoleApp.vbproj",
+      "/mnt/c/dev/application/src/ConsoleApp/ConsoleApp.vbproj",
+    ])("matches project file (%s)", (file) => {
       const reportOutput = [
-        "  Formatting code files in workspace 'C:\\dev\\application\\src\\ConsoleApp\\ConsoleApp.csproj'.",
+        `  Formatting code files in workspace '${file}'.`,
         "  Program.cs(5,18): Fix whitespace formatting 1.",
         "  Program.cs(8,30): Fix whitespace formatting 2.",
         "  Formatted code file 'Program.cs'.",
@@ -47,22 +55,7 @@ describe("problemMatcher", () => {
       const regexp = new RegExp(pattern.regexp);
       const results = matchResults(reportOutput, regexp);
 
-      expect(results[0][pattern.fromPath]).toEqual("C:\\dev\\application\\src\\ConsoleApp\\ConsoleApp.csproj");
-    });
-
-    it("matches vbproj files", () => {
-      const reportOutput = [
-        "  Formatting code files in workspace 'C:\\dev\\application\\src\\ConsoleApp\\ConsoleApp.vbproj'.",
-        "  Program.vb(5,18): Fix whitespace formatting 1.",
-        "  Program.vb(8,30): Fix whitespace formatting 2.",
-        "  Formatted code file 'Program.vb'.",
-        "  Format complete in 4451ms.",
-      ];
-
-      const regexp = new RegExp(pattern.regexp);
-      const results = matchResults(reportOutput, regexp);
-
-      expect(results[0][pattern.fromPath]).toEqual("C:\\dev\\application\\src\\ConsoleApp\\ConsoleApp.vbproj");
+      expect(results[0][pattern.fromPath]).toEqual(file);
     });
   });
 
