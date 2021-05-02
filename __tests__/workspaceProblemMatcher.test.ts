@@ -2,7 +2,7 @@ import { matchResults } from "../__helpers__/utils";
 import { problemMatcher as problemMatcherJson } from "../src/workspace-problem-matcher.json";
 import { ProblemMatcher, ProblemPattern } from "github-actions-problem-matcher-typings";
 
-const problemMatcher: ProblemMatcher = problemMatcherJson[0];
+const problemMatcher = problemMatcherJson[0] as ProblemMatcher;
 
 describe("problemMatcher", () => {
   it("has the correct owner", () => {
