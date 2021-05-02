@@ -1,13 +1,12 @@
-import { readFile } from "fs";
+import { promises } from "fs";
 import { join } from "path";
-import { promisify } from "util";
 
 import { getInput, setFailed } from "@actions/core";
 import { issueCommand } from "@actions/core/lib/command"
 
 import { ProblemMatcherDocument } from "github-actions-problem-matcher-typings";
 
-const readFileAsync = promisify(readFile);
+const { readFile } = promises;
 
 export async function run(): Promise<void> {
   try {
@@ -25,7 +24,7 @@ export async function run(): Promise<void> {
         break;
 
       case "remove":
-        const fileContents = await readFileAsync(matcherFile, { encoding: "utf8" });
+        const fileContents = await readFile(matcherFile, { encoding: "utf8" });
         const problemMatcherDocument: ProblemMatcherDocument = JSON.parse(fileContents);
         const problemMatcher = problemMatcherDocument.problemMatcher[0];
 
