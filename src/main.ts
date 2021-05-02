@@ -13,7 +13,7 @@ export async function run(): Promise<void> {
   try {
     const action = getInput("action");
 
-    const matcherFile = join(__dirname, "..", ".github", "problem-matcher.json");
+    const matcherFile = join(__dirname, "problem-matcher.json");
 
     switch (action) {
       case "add":
