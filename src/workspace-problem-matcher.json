@@ -4,7 +4,7 @@
       "owner": "dotnet-format",
       "pattern": [
         {
-          "regexp": "^\\s+Formatting code files in workspace '(.*)'\\.$",
+          "regexp": "^\\s*Formatting code files in workspace '(.*)'\\.$",
           "fromPath": 1
         },
         {
