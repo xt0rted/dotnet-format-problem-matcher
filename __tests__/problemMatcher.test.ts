@@ -15,11 +15,8 @@ describe("problemMatcher", () => {
 
   describe("pattern", () => {
     const reportOutput = [
-      "  Formatting code files in workspace 'C:\\dev\\application\\application.sln'.",
-      "  src\\ConsoleApp\\Program.cs(5,18): Fix whitespace formatting 1.",
-      "  src\\ConsoleApp\\Program.cs(8,30): Fix whitespace formatting 2.",
-      "  Formatted code file 'Program.cs'.",
-      "  Format complete in 4451ms.",
+      "src\\ConsoleApp\\Program.cs(3,3): error WHITESPACE: Fix whitespace formatting. Insert '\\s\\s'. [src\\ConsoleApp\\ConsoleApp.csproj]",
+      "src\\ConsoleApp\\Program.cs(1,1): warning IDE0161: Convert to file-scoped namespace [src\\ConsoleApp\\ConsoleApp.csproj]",
     ];
 
     let pattern: ProblemPattern;
@@ -39,14 +36,18 @@ describe("problemMatcher", () => {
 
     it("matches violation details", () => {
       expect(results[0][pattern.file]).toEqual("src\\ConsoleApp\\Program.cs");
-      expect(results[0][pattern.line]).toEqual("5");
-      expect(results[0][pattern.column]).toEqual("18");
-      expect(results[0][pattern.message]).toEqual("Fix whitespace formatting 1.");
+      expect(results[0][pattern.line]).toEqual("3");
+      expect(results[0][pattern.column]).toEqual("3");
+      expect(results[0][pattern.severity]).toEqual("error");
+      expect(results[0][pattern.code]).toEqual("WHITESPACE");
+      expect(results[0][pattern.message]).toEqual("Fix whitespace formatting. Insert '\\s\\s'.");
 
       expect(results[1][pattern.file]).toEqual("src\\ConsoleApp\\Program.cs");
-      expect(results[1][pattern.line]).toEqual("8");
-      expect(results[1][pattern.column]).toEqual("30");
-      expect(results[1][pattern.message]).toEqual("Fix whitespace formatting 2.");
+      expect(results[1][pattern.line]).toEqual("1");
+      expect(results[1][pattern.column]).toEqual("1");
+      expect(results[1][pattern.severity]).toEqual("warning");
+      expect(results[1][pattern.code]).toEqual("IDE0161");
+      expect(results[1][pattern.message]).toEqual("Convert to file-scoped namespace");
     });
   });
 });

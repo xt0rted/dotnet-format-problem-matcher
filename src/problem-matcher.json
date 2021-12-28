@@ -4,11 +4,13 @@
       "owner": "dotnet-format",
       "pattern": [
         {
-          "regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+          "regexp": "^\\s*(.*)\\((\\d+),(\\d+)\\):\\s+(.*)\\s+(.*):\\s+(.*)\\s+\\[(.*)\\]$",
           "file": 1,
           "line": 2,
           "column": 3,
-          "message": 4
+          "severity": 4,
+          "code": 5,
+          "message": 6
         }
       ]
     }
