@@ -1,6 +1,8 @@
 # Problem Matcher for dotnet-format
 
-[![CI](https://github.com/xt0rted/dotnet-format-problem-matcher/actions/workflows/ci.yml/badge.svg)](https://github.com/xt0rted/dotnet-format-problem-matcher/actions/workflows/ci.yml)
+[![CI](https://github.com/xt0rted/dotnet-format-problem-matcher/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/xt0rted/dotnet-format-problem-matcher/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/xt0rted/dotnet-format-problem-matcher/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/xt0rted/dotnet-format-problem-matcher/actions/workflows/codeql-analysis.yml)
+
 
 Adds a problem matcher that will detect errors from [dotnet-format](https://github.com/dotnet/format) and create annotations for them.
 
