@@ -39,17 +39,19 @@ describe("problemMatcher", () => {
       expect(results[0][pattern.file]).toEqual("/path/file.cs");
       expect(results[0][pattern.line]).toEqual("15");
       expect(results[0][pattern.column]).toEqual("2");
-      expect(results[0][pattern.message]).toEqual("error WHITESPACE: Fix whitespace formatting. Insert '\t'.");
+      expect(results[0][pattern.message]).toEqual("Fix whitespace formatting. Insert '\t'.");
+      expect(results[0][pattern.severity]).toEqual("error");
+      expect(results[0][pattern.code]).toEqual("WHITESPACE");
 
       expect(results[1][pattern.file]).toEqual("/path/file.cs");
       expect(results[1][pattern.line]).toEqual("15");
       expect(results[1][pattern.column]).toEqual("3");
-      expect(results[1][pattern.message]).toEqual("error WHITESPACE: Fix whitespace formatting. Replace 4 characters with '\n\t\t\t'.");
+      expect(results[1][pattern.message]).toEqual("Fix whitespace formatting. Replace 4 characters with '\n\t\t\t'.");
 
       expect(results[2][pattern.file]).toEqual("/path/file.cs");
       expect(results[2][pattern.line]).toEqual("16");
       expect(results[2][pattern.column]).toEqual("84");
-      expect(results[2][pattern.message]).toEqual("error WHITESPACE: Fix whitespace formatting. Replace 4 characters with '\n\t\t\t'.");
+      expect(results[2][pattern.message]).toEqual("Fix whitespace formatting. Replace 4 characters with '\n\t\t\t'.");
     });
   });
 });
