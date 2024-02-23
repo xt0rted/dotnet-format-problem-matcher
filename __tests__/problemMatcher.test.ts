@@ -15,11 +15,9 @@ describe("problemMatcher", () => {
 
   describe("pattern", () => {
     const reportOutput = [
-      "  Formatting code files in workspace 'C:\\dev\\application\\application.sln'.",
-      "  src\\ConsoleApp\\Program.cs(5,18): Fix whitespace formatting 1.",
-      "  src\\ConsoleApp\\Program.cs(8,30): Fix whitespace formatting 2.",
-      "  Formatted code file 'Program.cs'.",
-      "  Format complete in 4451ms.",
+      "/path/file.cs(15,2): error WHITESPACE: Fix whitespace formatting. Insert '\t'. [/path/project.csproj]",
+      "/path/file.cs(15,3): error WHITESPACE: Fix whitespace formatting. Replace 4 characters with '\n\t\t\t'. [/path/project.csproj]",
+      "/path/file.cs(16,84): error WHITESPACE: Fix whitespace formatting. Replace 4 characters with '\n\t\t\t'. [/path/project.csproj]",
     ];
 
     let pattern: ProblemPattern;
@@ -34,19 +32,26 @@ describe("problemMatcher", () => {
     });
 
     it("matches violations", () => {
-      expect(results.length).toEqual(2);
+      expect(results.length).toEqual(3);
     });
 
     it("matches violation details", () => {
-      expect(results[0][pattern.file]).toEqual("src\\ConsoleApp\\Program.cs");
-      expect(results[0][pattern.line]).toEqual("5");
-      expect(results[0][pattern.column]).toEqual("18");
-      expect(results[0][pattern.message]).toEqual("Fix whitespace formatting 1.");
+      expect(results[0][pattern.file]).toEqual("/path/file.cs");
+      expect(results[0][pattern.line]).toEqual("15");
+      expect(results[0][pattern.column]).toEqual("2");
+      expect(results[0][pattern.message]).toEqual("Fix whitespace formatting. Insert '\t'.");
+      expect(results[0][pattern.severity]).toEqual("error");
+      expect(results[0][pattern.code]).toEqual("WHITESPACE");
 
-      expect(results[1][pattern.file]).toEqual("src\\ConsoleApp\\Program.cs");
-      expect(results[1][pattern.line]).toEqual("8");
-      expect(results[1][pattern.column]).toEqual("30");
-      expect(results[1][pattern.message]).toEqual("Fix whitespace formatting 2.");
+      expect(results[1][pattern.file]).toEqual("/path/file.cs");
+      expect(results[1][pattern.line]).toEqual("15");
+      expect(results[1][pattern.column]).toEqual("3");
+      expect(results[1][pattern.message]).toEqual("Fix whitespace formatting. Replace 4 characters with '\n\t\t\t'.");
+
+      expect(results[2][pattern.file]).toEqual("/path/file.cs");
+      expect(results[2][pattern.line]).toEqual("16");
+      expect(results[2][pattern.column]).toEqual("84");
+      expect(results[2][pattern.message]).toEqual("Fix whitespace formatting. Replace 4 characters with '\n\t\t\t'.");
     });
   });
 });
